@@ -1,1 +1,0 @@
-self.__BUILD_MANIFEST=function(e){return{__rewrites:{afterFiles:[{has:e,source:"/api/backend/:path*",destination:e},{has:e,source:"/favicon.ico",destination:"/favicon.svg"}],beforeFiles:[],fallback:[]},"/_error":["static/chunks/pages/_error-e87e5963ec1b8011.js"],sortedPages:["/_app","/_error"]}}(void 0),self.__BUILD_MANIFEST_CB&&self.__BUILD_MANIFEST_CB();
