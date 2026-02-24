@@ -1,0 +1,1 @@
+{"version":3,"file":"OpenAISTTService.d.ts","sourceRoot":"","sources":["../../../src/ai/stt/OpenAISTTService.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,WAAW,EAAE,MAAM,SAAS,CAAC;AAE3C,qBAAa,gBAAiB,YAAW,WAAW;IAChD,OAAO,CAAC,MAAM,CAAuB;;IAU/B,UAAU,CAAC,WAAW,EAAE,MAAM,GAAG,OAAO,CAAC,MAAM,CAAC;CAiBzD"}
