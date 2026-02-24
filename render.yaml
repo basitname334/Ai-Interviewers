@@ -1,0 +1,35 @@
+# Render Blueprint: AI Interviewer Backend
+# Deploy: Connect this repo to Render and use this file, or create a Web Service manually.
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: ai-interviewer-backend
+    runtime: node
+    region: oregon
+
+    # Build and start (Render sets PORT automatically)
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+
+    # Root is the backend folder
+    rootDir: backend
+
+    # Health check so Render knows the service is up
+    healthCheckPath: /health
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_PREFIX
+        value: /api/v1
+      # Add these in Render Dashboard → Environment (or link a PostgreSQL/Redis):
+      # DATABASE_URL (required) - from Render PostgreSQL or external
+      # REDIS_URL (optional) - set to "memory" to skip Redis, or use Render Redis
+      # FRONTEND_URL (required) - your Vercel frontend URL, e.g. https://your-app.vercel.app
+      # JWT_SECRET (required) - generate a strong secret
+      # OPENROUTER_API_KEY (optional) - for AI
+      # OPENROUTER_MODEL (optional) - e.g. openai/gpt-4o-mini
+
+# Optional: add a PostgreSQL database and Redis from Render Dashboard,
+# then link them to the web service and set DATABASE_URL and REDIS_URL.

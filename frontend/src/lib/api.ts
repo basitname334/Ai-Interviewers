@@ -13,11 +13,13 @@ import type {
 
 // Use same-origin proxy so the browser never hits :4000 directly (avoids ERR_CONNECTION_REFUSED).
 // Next.js api/proxy/[...path] forwards to the backend; if backend is down you get a clear 503 message.
+// BACKEND_URL = backend origin only (e.g. https://your-backend.onrender.com); /api/v1 is appended server-side.
 const getBase = () => {
   if (typeof window !== 'undefined') {
     return '/api/proxy';
   }
-  return process.env.BACKEND_URL || 'http://127.0.0.1:4000/api/v1';
+  const origin = process.env.BACKEND_URL || 'http://127.0.0.1:4000';
+  return `${origin}/api/v1`;
 };
 
 async function request<T>(

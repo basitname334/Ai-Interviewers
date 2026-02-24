@@ -11,34 +11,43 @@ const API_PREFIX = '/api/v1';
 // Start/join and first LLM turn can take longer under load; keep timeout generous.
 const FETCH_TIMEOUT_MS = 45000;
 
+async function getPath(params: { path: string[] } | Promise<{ path: string[] }>): Promise<string[]> {
+  const resolved = typeof (params as Promise<unknown>).then === 'function' ? await (params as Promise<{ path: string[] }>) : (params as { path: string[] });
+  return resolved.path;
+}
+
 export async function GET(
   req: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: { path: string[] } | Promise<{ path: string[] }> }
 ) {
-  return proxy(req, params.path, { method: 'GET' });
+  const path = await getPath(params);
+  return proxy(req, path, { method: 'GET' });
 }
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: { path: string[] } | Promise<{ path: string[] }> }
 ) {
   const body = await req.arrayBuffer();
-  return proxy(req, params.path, { method: 'POST', body });
+  const path = await getPath(params);
+  return proxy(req, path, { method: 'POST', body });
 }
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: { path: string[] } | Promise<{ path: string[] }> }
 ) {
   const body = await req.arrayBuffer();
-  return proxy(req, params.path, { method: 'PATCH', body });
+  const path = await getPath(params);
+  return proxy(req, path, { method: 'PATCH', body });
 }
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: { path: string[] } | Promise<{ path: string[] }> }
 ) {
-  return proxy(req, params.path, { method: 'DELETE' });
+  const path = await getPath(params);
+  return proxy(req, path, { method: 'DELETE' });
 }
 
 async function proxy(
